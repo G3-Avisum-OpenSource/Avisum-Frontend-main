@@ -14,7 +14,6 @@ interface ApiLog { method: string; endpoint: string; status: number; time: strin
     <h2 class="ac-title">API CONSOLE</h2>
     <p class="ac-sub">Avisum REST API — {{ baseUrl }}</p>
   </div>
-
   <div class="ac-grid">
     <!-- Endpoints panel -->
     <div class="sb-card endpoints-card">
