@@ -478,6 +478,9 @@ function buildRoster(conds: Driver[]): Sim[] {
     `,
   ],
 })
+  /**
+ * Clase encargada de gestionar el historial de turnos y su lógica de filtrado.
+ */
 export class ShiftHistory {
   private svc = inject(MonitoringDataService);
   private users = inject(UsersStateService);
