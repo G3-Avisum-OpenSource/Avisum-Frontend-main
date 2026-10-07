@@ -15,7 +15,9 @@ export interface ShiftResource extends BaseResource {
   startedAt: string;
   endedAt: string | null;
 }
-
+/**
+ * Representa la estructura de la respuesta de la API al consultar turnos.
+ */
 export interface ShiftsResponse extends BaseResponse {
   shifts: ShiftResource[];
 }
