@@ -1,59 +1,20 @@
 # Avisum
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.1.7.
+Frontend Angular de Avisum: seguridad en transporte público (verificación de conductores, botón de pánico y monitoreo de flota).
 
-## Development server
-
-To start a local development server, run:
+## Cómo correrlo con la API falsa (json-server)
 
 ```bash
-ng serve
+npm install
+npm run server   # API falsa en http://localhost:3000/api/v1 (base de datos: server/db.json)
+npm start        # app en http://localhost:4200
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Accesos de prueba
 
-## Code scaffolding
+- Conductor: `/conductor/login` con `EMP-001` a `EMP-005`
+- Administrador: `/admin/login` con `ADMIN-001`
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Despliegue
 
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+La versión desplegada en Vercel no usa json-server: una copia de la API (src/app/shared/infrastructure/fake-api) responde dentro del navegador con las mismas rutas.
