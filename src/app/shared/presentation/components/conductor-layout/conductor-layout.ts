@@ -26,7 +26,6 @@ export class ConductorLayout {
     this.panicTriggered.set(true);
     this.router.navigate(['/conductor/panic-alert']);
   }
-
   logout() {
     this.state.clearConductor();
     this.router.navigate(['/conductor/login']);
