@@ -1,0 +1,56 @@
+<div class="layout-root">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <span class="brand-text">Avisum</span>
+      <span class="operator-tag">OPERATOR-01</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      @for (item of navItems(); track item.route) {
+        <a class="nav-item"
+           [routerLink]="item.route"
+           routerLinkActive="nav-active">
+          <mat-icon>{{ item.icon }}</mat-icon>
+          <span>{{ item.label }}</span>
+        </a>
+      }
+    </nav>
+
+    <div class="sidebar-bottom">
+      <button class="panic-btn" (click)="triggerPanic()">
+        <mat-icon>emergency</mat-icon>
+        PANIC SIGNAL
+      </button>
+
+      <button class="settings-link logout-btn" (click)="logout()">
+        <mat-icon>logout</mat-icon> CERRAR SESIÓN
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <div class="main-area">
+    <!-- TOOLBAR -->
+    <header class="toolbar">
+      <div class="toolbar-left">
+        <span class="toolbar-title">TRANSIT MONITOR v2.4</span>
+        <span class="toolbar-sep">|</span>
+        <span class="toolbar-unit">UNIT: {{ state.conductorActual()?.placa ?? '—' }}</span>
+      </div>
+      <div class="toolbar-right">
+        <div class="search-box">
+          <mat-icon>search</mat-icon>
+          <span class="search-placeholder">SEARCH LOGS...</span>
+        </div>
+        <mat-icon class="tb-icon">notifications_none</mat-icon>
+        <mat-icon class="tb-icon" routerLink="/conductor/profile" role="link" tabindex="0" title="Mi perfil">account_circle</mat-icon>
+        <span class="live-badge">SYSTEM_LIVE</span>
+      </div>
+    </header>
+
+    <main class="content-area">
+      <router-outlet />
+    </main>
+  </div>
+</div>

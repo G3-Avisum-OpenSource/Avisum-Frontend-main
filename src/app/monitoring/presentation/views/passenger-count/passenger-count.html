@@ -1,0 +1,116 @@
+<div class="pc-root">
+  <div class="pc-header">
+    <h2 class="pc-title">CONTEO DE PASAJEROS</h2>
+    <p class="pc-sub">Monitoreo automático en tiempo real — BUS-7729</p>
+  </div>
+
+  <!-- Main counter -->
+  <div class="pc-main-grid">
+    <div class="pc-big-card" [class.pc-alert]="anomalia()">
+      <div class="pc-big-icon">
+        <mat-icon>groups</mat-icon>
+      </div>
+      <div class="pc-big-val">{{ totalAbordo() }}</div>
+      <div class="pc-big-label">PASAJEROS A BORDO</div>
+      @if (anomalia()) {
+        <div class="pc-anomalia-badge">
+          <mat-icon>warning</mat-icon> ANOMALÍA DETECTADA
+        </div>
+      }
+    </div>
+
+    <!-- Stats cards -->
+    <div class="pc-stats-col">
+      <div class="pc-stat-card">
+        <mat-icon class="stat-icon green">arrow_downward</mat-icon>
+        <div>
+          <div class="pc-stat-val">{{ totalAbordaron() }}</div>
+          <div class="sb-label">TOTAL ABORDARON</div>
+        </div>
+      </div>
+      <div class="pc-stat-card">
+        <mat-icon class="stat-icon red">arrow_upward</mat-icon>
+        <div>
+          <div class="pc-stat-val">{{ totalBajaron() }}</div>
+          <div class="sb-label">TOTAL BAJARON</div>
+        </div>
+      </div>
+      <div class="pc-stat-card">
+        <mat-icon class="stat-icon">event_seat</mat-icon>
+        <div>
+          <div class="pc-stat-val">{{ capacidadMax() }}</div>
+          <div class="sb-label">CAPACIDAD MÁX.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ocupación bar -->
+  <div class="sb-card ocupacion-card">
+    <div class="ocupacion-header">
+      <span class="sb-label">NIVEL DE OCUPACIÓN</span>
+      <span class="ocupacion-pct" [class.high]="ocupacionPct > 89">{{ ocupacionPct }}%</span>
+    </div>
+    <div class="ocupacion-bar-bg">
+      <div class="ocupacion-bar-fill"
+           [style.width.%]="ocupacionPct"
+           [class.fill-warn]="ocupacionPct > 75"
+           [class.fill-danger]="ocupacionPct > 89">
+      </div>
+    </div>
+    <div class="ocupacion-labels">
+      <span>0</span>
+      <span>{{ capacidadMax() / 2 }}</span>
+      <span>{{ capacidadMax() }}</span>
+    </div>
+  </div>
+
+  <!-- Status indicators -->
+  <div class="pc-status-row">
+    <div class="pc-status-item">
+      <span class="dot-pulse"></span>
+      <span class="sb-label">IA ACTIVA</span>
+    </div>
+    <div class="pc-status-item">
+      <mat-icon class="tiny-icon">sensors</mat-icon>
+      <span class="sb-label">SENSORES: ONLINE</span>
+    </div>
+    <div class="pc-status-item">
+      <mat-icon class="tiny-icon">cloud_sync</mat-icon>
+      <span class="sb-label">CLOUD: SINCRONIZADO</span>
+    </div>
+    <div class="pc-status-item" [class.anomalia-status]="anomalia()">
+      <mat-icon class="tiny-icon">{{ anomalia() ? 'warning' : 'check_circle' }}</mat-icon>
+      <span class="sb-label">{{ anomalia() ? 'ANOMALÍA' : 'NORMAL' }}</span>
+    </div>
+  </div>
+
+  <!-- History table -->
+  <div class="sb-card hist-card">
+    <p class="section-label">ÚLTIMOS REGISTROS</p>
+    @if (historial().length === 0) {
+      <p class="no-data">Sin registros históricos disponibles.</p>
+    } @else {
+      <div class="hist-table">
+        <div class="hist-header">
+          <span>TIMESTAMP</span>
+          <span>A BORDO</span>
+          <span>SUBIERON</span>
+          <span>BAJARON</span>
+          <span>ESTADO</span>
+        </div>
+        @for (h of historial(); track h.id) {
+          <div class="hist-row">
+            <span class="hist-mono">{{ h.timestamp | date:'HH:mm:ss' }}</span>
+            <span class="hist-val accent">{{ h.totalAbordo }}</span>
+            <span class="hist-val">{{ h.totalAbordaron }}</span>
+            <span class="hist-val">{{ h.totalBajaron }}</span>
+            <span class="hist-estado" [class.alerta]="h.anomalia">
+              {{ h.anomalia ? 'ANOMALÍA' : 'NORMAL' }}
+            </span>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>

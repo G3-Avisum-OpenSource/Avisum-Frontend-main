@@ -1,0 +1,38 @@
+<div class="layout-root">
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <span class="brand-text">Avisum</span>
+      <span class="role-tag">ADMINISTRADOR</span>
+    </div>
+    <nav class="sidebar-nav">
+      @for (item of navItems(); track item.route) {
+        <a class="nav-item" [routerLink]="item.route" routerLinkActive="nav-active">
+          <mat-icon>{{ item.icon }}</mat-icon>
+          <span>{{ item.label }}</span>
+        </a>
+      }
+    </nav>
+    <div class="sidebar-bottom">
+      <a class="settings-link" role="button" tabindex="0" style="cursor: pointer"
+         (click)="logout()" (keydown.enter)="logout()">
+        <mat-icon>logout</mat-icon> CERRAR SESIÓN
+      </a>
+    </div>
+  </aside>
+  <div class="main-area">
+    <header class="toolbar">
+      <div class="toolbar-left">
+        <span class="toolbar-title">AVISUM ADMIN</span>
+        <span class="toolbar-sep">|</span>
+        <span class="toolbar-unit">PANEL DE CONTROL</span>
+      </div>
+      <div class="toolbar-right">
+        <mat-icon class="tb-icon">notifications_none</mat-icon>
+        <span class="admin-name">{{ session.admin()?.fullName }}</span>
+        <mat-icon class="tb-icon">account_circle</mat-icon>
+        <span class="live-badge">SISTEMA ACTIVO</span>
+      </div>
+    </header>
+    <main class="content-area"><router-outlet /></main>
+  </div>
+</div>

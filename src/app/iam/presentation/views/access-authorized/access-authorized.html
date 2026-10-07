@@ -1,0 +1,34 @@
+<div class="auth-root">
+  <div class="sb-modal auth-modal">
+    <div class="check-icon">
+      <mat-icon>check</mat-icon>
+    </div>
+    <h2 class="auth-title">Acceso Autorizado</h2>
+    <p class="auth-sub">TRANSMISIÓN DE EMERGENCIA ACTIVA</p>
+
+    <div class="info-rows">
+      <div class="info-row">
+        <span class="info-key">COORDENADAS GPS</span>
+        <span class="info-val accent">{{ coords() }}</span>
+      </div>
+      <div class="info-row">
+        <span class="info-key">ESTADO CENTRAL</span>
+        <span class="info-val accent">CENTRAL NOTIFICADA <mat-icon class="tiny-icon">check</mat-icon></span>
+      </div>
+      <div class="info-row">
+        <span class="info-key">AUDIO REMOTO</span>
+        <span class="info-val accent-blink">GRABANDO...</span>
+      </div>
+    </div>
+
+    <button class="sb-btn-outline continue-btn" (click)="continue()">Seguir</button>
+  </div>
+
+  <footer class="aa-footer">
+    <span class="sb-mono">TRANSIT-SEC PROTOCOL // DATA_STAMP:2028.04.OPERATIONAL</span>
+    <div class="footer-dots">
+      <span class="dot-g"></span> ENCRIPTACIÓN AES-256
+      <span class="dot-g ml"></span> CLOUD_SYNC OK
+    </div>
+  </footer>
+</div>

@@ -1,0 +1,56 @@
+.panic-root {
+  min-height: 100vh;
+  background: var(--sb-red);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.panic-modal {
+  background: var(--sb-bg-card);
+  border: 1px solid var(--sb-border2);
+  padding: 40px 32px;
+  width: 100%;
+  max-width: 360px;
+  text-align: center;
+}
+.alert-icon {
+  width: 60px; height: 60px;
+  background: var(--sb-red);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 20px;
+}
+.alert-icon mat-icon { font-size: 32px; width: 32px; height: 32px; color: #fff; }
+.alert-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: 28px; color: var(--sb-white); margin-bottom: 6px;
+}
+.alert-sub {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700; font-size: 11px; letter-spacing: 0.2em; color: var(--sb-gray); margin-bottom: 24px;
+}
+.info-rows { background: var(--sb-bg-card2); border: 1px solid var(--sb-border); padding: 16px; margin-bottom: 20px; text-align: left; }
+.info-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--sb-border); }
+.info-row:last-child { border-bottom: none; }
+.info-key { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 0.1em; color: var(--sb-gray); }
+.info-val { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 12px; color: var(--sb-accent); display: flex; align-items: center; gap: 4px; }
+.info-val.blink { animation: blink 1s infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+.tiny { font-size: 14px !important; width: 14px !important; height: 14px !important; }
+.cancel-btn {
+  width: 100%; padding: 14px; margin-bottom: 10px;
+  background: transparent; border: 1px solid var(--sb-border2);
+  color: var(--sb-white); font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700; font-size: 13px; letter-spacing: 0.1em; cursor: pointer;
+  transition: border-color 0.2s;
+}
+.cancel-btn:not(:disabled):hover { border-color: var(--sb-red); color: var(--sb-red); }
+.cancel-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.ok-btn {
+  width: 100%; padding: 14px;
+  background: #fff; border: none;
+  color: #000; font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700; font-size: 13px; letter-spacing: 0.1em; cursor: pointer;
+}
+.ok-btn:hover { background: #eee; }

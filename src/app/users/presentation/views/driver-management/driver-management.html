@@ -1,0 +1,169 @@
+<div class="dm-root">
+
+  <div class="dm-header">
+    <div>
+      <h2 class="dm-title">GESTIÓN DE CONDUCTORES</h2>
+      <p class="dm-sub">{{ activos() }} activos de {{ conductores().length }} registrados</p>
+    </div>
+    <div class="dm-tools">
+      <div class="dm-search">
+        <mat-icon>search</mat-icon>
+        <input placeholder="Buscar conductor..." aria-label="Buscar conductor"
+               [value]="searchTerm()"
+               (input)="searchTerm.set($any($event.target).value)" />
+      </div>
+      <button type="button" class="dm-new" (click)="abrirCrear()">
+        <mat-icon>person_add</mat-icon> Nuevo conductor
+      </button>
+    </div>
+  </div>
+
+  <div class="driver-table">
+    <div class="table-header">
+      <span>CONDUCTOR</span>
+      <span>DNI</span>
+      <span>CÓD. EMPLEADO</span>
+      <span>PLACA</span>
+      <span>ESTADO</span>
+      <span>ACCIONES</span>
+    </div>
+
+    @for (c of filtered(); track c.id) {
+      <div class="table-row" [class.row-selected]="selected() === c.id"
+           [class.inactive]="c.estado !== 'ACTIVO'" (click)="selected.set(c.id)">
+        <div class="driver-cell">
+          <img [src]="c.foto" [alt]="c.nombre" class="driver-photo" />
+          <div>
+            <p class="driver-name">{{ c.nombre }} {{ c.apellido }}</p>
+            <p class="driver-qr">{{ c.codigoQr }}</p>
+          </div>
+        </div>
+        <span class="cell-mono">{{ c.dni }}</span>
+        <span class="cell-mono">{{ c.codigoEmpleado }}</span>
+        <span class="cell-accent">{{ c.placa }}</span>
+        <span class="cell-estado" [class.off]="c.estado !== 'ACTIVO'">
+          {{ c.estado === 'ACTIVO' ? 'Activo' : 'Inactivo' }}
+        </span>
+        <div class="cell-actions">
+          <button type="button" class="action-btn" title="Editar" aria-label="Editar conductor"
+                  (click)="abrirEditar(c); $event.stopPropagation()">
+            <mat-icon>edit</mat-icon>
+          </button>
+          @if (c.estado === 'ACTIVO') {
+            <button type="button" class="action-btn red" title="Desactivar" aria-label="Desactivar conductor"
+                    (click)="pedirDesactivar(c); $event.stopPropagation()">
+              <mat-icon>block</mat-icon>
+            </button>
+          } @else {
+            <button type="button" class="action-btn" title="Reactivar" aria-label="Reactivar conductor"
+                    (click)="reactivar(c); $event.stopPropagation()">
+              <mat-icon>check_circle</mat-icon>
+            </button>
+          }
+          <button type="button" class="action-btn red" title="Eliminar" aria-label="Eliminar conductor"
+                  (click)="pedirEliminar(c); $event.stopPropagation()">
+            <mat-icon>delete</mat-icon>
+          </button>
+
+        </div>
+      </div>
+    } @empty {
+      <div class="dm-empty">
+        <b>No hay conductores que coincidan con la búsqueda.</b>
+        <span>Prueba con otro nombre, DNI, código o placa.</span>
+      </div>
+    }
+  </div>
+
+  <!-- Formulario: crear / editar -->
+  @if (modal(); as m) {
+    <div class="dm-overlay" (click)="cerrar()">
+      <form class="dm-modal" novalidate (click)="$event.stopPropagation()" (submit)="enviar($event)">
+        <h3 class="dm-modal-title">{{ m === 'crear' ? 'Nuevo conductor' : 'Editar conductor' }}</h3>
+
+        <div class="dm-code">
+          <span>Código de acceso</span>
+          <b>{{ m === 'editar' ? editando()?.codigoEmpleado : 'Se asigna al guardar' }}</b>
+        </div>
+
+        <div class="dm-grid">
+          <div class="dm-field">
+            <label for="f-nombre">Nombres</label>
+            <input id="f-nombre" [value]="form().nombre" (input)="onInput('nombre', $event)"
+                   [attr.aria-invalid]="!!errores().nombre" autocomplete="off" />
+            @if (errores().nombre) { <small class="dm-err">{{ errores().nombre }}</small> }
+          </div>
+          <div class="dm-field">
+            <label for="f-apellido">Apellidos</label>
+            <input id="f-apellido" [value]="form().apellido" (input)="onInput('apellido', $event)"
+                   [attr.aria-invalid]="!!errores().apellido" autocomplete="off" />
+            @if (errores().apellido) { <small class="dm-err">{{ errores().apellido }}</small> }
+          </div>
+          <div class="dm-field">
+            <label for="f-dni">DNI</label>
+            <input id="f-dni" inputmode="numeric" [value]="form().dni" (input)="onInput('dni', $event)"
+                   [attr.aria-invalid]="!!errores().dni" autocomplete="off" />
+            @if (errores().dni) { <small class="dm-err">{{ errores().dni }}</small> }
+          </div>
+          <div class="dm-field">
+            <label for="f-placa">Placa de la unidad</label>
+            <input id="f-placa" placeholder="ABC-1234" [value]="form().placa" (input)="onInput('placa', $event)"
+                   [attr.aria-invalid]="!!errores().placa" autocomplete="off" />
+            @if (errores().placa) { <small class="dm-err">{{ errores().placa }}</small> }
+          </div>
+          <div class="dm-field">
+            <label for="f-ruta">Ruta</label>
+            <select id="f-ruta" (change)="onInput('ruta', $event)">
+              @for (r of rutas; track r) {
+                <option [value]="r" [selected]="form().ruta === r">{{ r }}</option>
+              }
+            </select>
+          </div>
+        </div>
+
+        <div class="dm-actions">
+          <button type="button" class="dm-btn ghost" (click)="cerrar()">Cancelar</button>
+          <button type="submit" class="dm-btn primary">
+            {{ m === 'crear' ? 'Registrar conductor' : 'Guardar cambios' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  }
+
+  <!-- Confirmación: desactivar -->
+  @if (porDesactivar(); as c) {
+    <div class="dm-overlay" (click)="cerrar()">
+      <div class="dm-modal small" role="alertdialog" aria-label="Desactivar conductor" (click)="$event.stopPropagation()">
+        <h3 class="dm-modal-title">¿Desactivar a {{ c.nombre }} {{ c.apellido }}?</h3>
+        <p class="dm-text">Ya no podrá iniciar sesión ni arrancar un turno. Puedes reactivarlo cuando quieras.</p>
+        <div class="dm-actions">
+          <button type="button" class="dm-btn ghost" (click)="cerrar()">Cancelar</button>
+          <button type="button" class="dm-btn danger" (click)="confirmarDesactivar()">Desactivar</button>
+        </div>
+      </div>
+    </div>
+  }
+  <!-- Confirmación: eliminar -->
+  @if (porEliminar(); as c) {
+    <div class="dm-overlay" (click)="cerrar()">
+      <div class="dm-modal small" role="alertdialog" aria-label="Eliminar conductor" (click)="$event.stopPropagation()">
+        <h3 class="dm-modal-title">¿Eliminar a {{ c.nombre }} {{ c.apellido }}?</h3>
+        <p class="dm-text">
+          Se borran su registro y su unidad. Esta acción no se puede deshacer. Sus turnos pasados
+          se conservan en el historial. Si solo quieres que no pueda entrar, usa mejor Desactivar.
+        </p>
+        <div class="dm-actions">
+          <button type="button" class="dm-btn ghost" (click)="cerrar()">Cancelar</button>
+          <button type="button" class="dm-btn danger" (click)="confirmarEliminar()">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  }
+
+  @if (aviso(); as a) {
+    <div class="dm-toast" role="status">
+      <mat-icon>check_circle</mat-icon> {{ a }}
+    </div>
+  }
+</div>

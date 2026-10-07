@@ -1,0 +1,67 @@
+@if (driver; as d) {
+  <div class="pf">
+    <h1 class="pf-title">Mi perfil</h1>
+
+    <div class="pf-layout">
+
+      <!-- Carnet del conductor -->
+      <article class="id-card" aria-label="Carnet de conductor">
+        <span class="id-slot"></span>
+
+        <header class="id-top">
+          <span class="id-brand">Avisum</span>
+          <span class="id-role">Conductor</span>
+        </header>
+
+        <div class="id-photo">{{ iniciales() }}</div>
+
+        <p class="id-first">{{ d.nombre }}</p>
+        <p class="id-last">{{ d.apellido }}</p>
+
+        <dl class="id-data">
+          <div><dt>Código</dt><dd>{{ d.codigoEmpleado }}</dd></div>
+          <div><dt>DNI</dt><dd>{{ d.dni || 'Sin registrar' }}</dd></div>
+        </dl>
+
+        <div class="id-plate">
+          <span>Unidad</span>
+          <b>{{ d.placa || '—' }}</b>
+        </div>
+
+        <svg class="id-bars" [attr.viewBox]="'0 0 ' + barcode().width + ' 30'"
+             preserveAspectRatio="none" aria-hidden="true">
+          @for (b of barcode().bars; track b.x) {
+            <rect [attr.x]="b.x" y="0" [attr.width]="b.w" height="30"></rect>
+          }
+        </svg>
+        <p class="id-code">{{ d.codigoQr }}</p>
+      </article>
+
+      <!-- Papeleta del turno -->
+      <section class="log">
+        <div class="log-head">
+          <h2>Turno de hoy</h2>
+          <span class="log-status" [class.live]="shift.turnoActivo()">
+            <i></i>{{ shift.turnoActivo() ? 'En ruta' : 'Turno cerrado' }}
+          </span>
+        </div>
+
+        <p class="log-time">{{ shift.tiempoStr() }}</p>
+        <p class="log-time-sub">de servicio</p>
+
+        <ul class="log-rows">
+          <li><span>Distancia</span><i></i><b>{{ shift.distanciaKm() | number:'1.2-2' }} km</b></li>
+          <li><span>Pasajeros</span><i></i><b>{{ shift.pasajeros() }}</b></li>
+          <li><span>Recaudación</span><i></i><b>${{ shift.recaudacion() | number:'1.2-2' }}</b></li>
+          <li><span>Estado de la cuenta</span><i></i><b>{{ d.estado }}</b></li>
+        </ul>
+
+        <div class="log-actions">
+          <a class="link" routerLink="/conductor/dashboard">Volver al dashboard</a>
+          <button type="button" class="out" (click)="salir()">Cerrar sesión</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+}

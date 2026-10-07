@@ -1,0 +1,47 @@
+.pc-root { padding: 20px; display: flex; flex-direction: column; gap: 16px; overflow-y: auto; height: calc(100vh - 48px); }
+.pc-header { margin-bottom: 4px; }
+.pc-title { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:22px; color:var(--sb-white); }
+.pc-sub { font-size:12px; color:var(--sb-gray); margin-top:4px; }
+.pc-main-grid { display:grid; grid-template-columns:1fr 280px; gap:16px; }
+.pc-big-card { background:var(--sb-bg-card); border:1px solid var(--sb-border); padding:40px 32px; text-align:center; transition:border-color 0.3s; }
+.pc-big-card.pc-alert { border-color:var(--sb-red); animation:flashBorder 1s infinite; }
+@keyframes flashBorder { 0%,100%{border-color:var(--sb-red)} 50%{border-color:rgba(232,0,42,0.3)} }
+.pc-big-icon mat-icon { font-size:56px; width:56px; height:56px; color:var(--sb-accent); }
+.pc-big-val { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:96px; color:var(--sb-accent); line-height:1; margin:16px 0 8px; }
+.pc-big-label { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:12px; letter-spacing:0.2em; color:var(--sb-gray); }
+.pc-anomalia-badge { display:inline-flex; align-items:center; gap:6px; background:rgba(232,0,42,0.15); border:1px solid var(--sb-red); color:var(--sb-red); font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:11px; letter-spacing:0.15em; padding:6px 14px; margin-top:16px; }
+.pc-anomalia-badge mat-icon { font-size:16px; width:16px; height:16px; }
+.pc-stats-col { display:flex; flex-direction:column; gap:10px; }
+.pc-stat-card { background:var(--sb-bg-card); border:1px solid var(--sb-border); padding:18px 16px; display:flex; align-items:center; gap:14px; flex:1; }
+.stat-icon { font-size:28px; width:28px; height:28px; color:var(--sb-gray); }
+.stat-icon.green { color:var(--sb-accent); }
+.stat-icon.red { color:var(--sb-red); }
+.pc-stat-val { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:32px; color:var(--sb-white); line-height:1; margin-bottom:4px; }
+.ocupacion-card { }
+.ocupacion-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+.ocupacion-pct { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:24px; color:var(--sb-accent); }
+.ocupacion-pct.high { color:var(--sb-red); }
+.ocupacion-bar-bg { height:16px; background:var(--sb-bg-card2); border:1px solid var(--sb-border2); overflow:hidden; margin-bottom:6px; }
+.ocupacion-bar-fill { height:100%; background:var(--sb-accent); transition:width 0.5s ease,background 0.3s; }
+.ocupacion-bar-fill.fill-warn { background:#f0a000; }
+.ocupacion-bar-fill.fill-danger { background:var(--sb-red); }
+.ocupacion-labels { display:flex; justify-content:space-between; font-size:10px; color:var(--sb-gray2); }
+.pc-status-row { display:flex; gap:16px; flex-wrap:wrap; }
+.pc-status-item { display:flex; align-items:center; gap:8px; background:var(--sb-bg-card); border:1px solid var(--sb-border); padding:8px 14px; }
+.pc-status-item.anomalia-status { border-color:var(--sb-red); }
+.dot-pulse { width:8px; height:8px; background:var(--sb-accent); border-radius:50%; animation:pulse 1.5s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.7)} }
+.tiny-icon { font-size:16px; width:16px; height:16px; color:var(--sb-accent); }
+.anomalia-status .tiny-icon { color:var(--sb-red); }
+.hist-card { }
+.section-label { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:11px; letter-spacing:0.2em; color:var(--sb-gray); text-transform:uppercase; margin-bottom:14px; }
+.no-data { font-size:13px; color:var(--sb-gray2); padding:16px 0; }
+.hist-table { }
+.hist-header,.hist-row { display:grid; grid-template-columns:2fr 1fr 1fr 1fr 1fr; padding:8px 12px; border-bottom:1px solid var(--sb-border); align-items:center; gap:8px; }
+.hist-header { background:var(--sb-bg-card2); }
+.hist-header span { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:10px; letter-spacing:0.15em; color:var(--sb-gray); }
+.hist-mono { font-family:'Share Tech Mono',monospace; font-size:11px; color:var(--sb-gray); }
+.hist-val { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:13px; color:var(--sb-white); }
+.hist-val.accent { color:var(--sb-accent); }
+.hist-estado { font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:11px; color:var(--sb-accent); }
+.hist-estado.alerta { color:var(--sb-red); }

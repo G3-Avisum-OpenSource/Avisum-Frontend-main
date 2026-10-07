@@ -1,0 +1,77 @@
+<div class="cc-root">
+  <div class="kpi-row">
+    <div class="kpi-card">
+      <mat-icon>directions_bus</mat-icon>
+      <div class="kpi-data">
+        <span class="kpi-val">{{ activasCnt }}</span>
+        <span class="sb-label">UNIDADES ACTIVAS</span>
+      </div>
+    </div>
+    <div class="kpi-card red">
+      <mat-icon>warning</mat-icon>
+      <div class="kpi-data">
+        <span class="kpi-val red">{{ alertaCnt }}</span>
+        <span class="sb-label">ALERTAS ACTIVAS</span>
+      </div>
+    </div>
+    <div class="kpi-card">
+      <mat-icon>people</mat-icon>
+      <div class="kpi-data">
+        <span class="kpi-val">{{ pasajerosCnt }}</span>
+        <span class="sb-label">PASAJEROS ABORDO</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="cc-grid">
+    <div class="cc-map sb-card">
+      <p class="section-label">MAPA OPERACIONAL EN TIEMPO REAL</p>
+      <div class="map-wrap">
+        <div id="monitoring-map" class="leaflet-host"></div>
+      </div>
+    </div>
+
+    <div class="cc-right">
+      <div class="sb-card unit-list">
+        <p class="section-label">ESTADO DE UNIDADES</p>
+        <div class="unit-rows">
+          @for (u of unidades(); track u.id) {
+            <div class="unit-row" (click)="focarUnidad(u.placa)">
+              <div class="unit-left">
+                <mat-icon [style.color]="estadoColor(u.estado)">directions_bus</mat-icon>
+                <div>
+                  <p class="unit-placa">{{ u.placa }}</p>
+                  <p class="unit-cond">{{ u.conductor }}</p>
+                </div>
+              </div>
+              <div class="unit-right">
+                <span class="unit-ruta">{{ u.ruta }}</span>
+                <span class="unit-estado" [style.color]="estadoColor(u.estado)">{{ u.estado }}</span>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="sb-card alert-list">
+        <p class="section-label">ALERTAS RECIENTES</p>
+        @for (a of alertas(); track a.id) {
+          <div class="alert-row" [class.resolved]="a.resuelta" (click)="focarUnidad(a.bus)">
+            <div class="alert-left">
+              <span class="alert-nivel" [style.color]="nivelColor(a.nivel)">{{ a.nivel }}</span>
+              <div>
+                <p class="alert-tipo">{{ a.tipo }} — {{ a.bus }}</p>
+                <p class="alert-hora">{{ a.conductor }} · {{ a.hora }}</p>
+              </div>
+            </div>
+            @if (!a.resuelta) {
+              <button class="resolve-btn" (click)="resolverAlerta(a.id); $event.stopPropagation()">RESOLVER</button>
+            } @else {
+              <span class="resolved-badge">RESUELTO</span>
+            }
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>

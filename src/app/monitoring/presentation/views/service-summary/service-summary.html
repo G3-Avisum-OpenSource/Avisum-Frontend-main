@@ -1,0 +1,111 @@
+@if (turno) {
+  <div class="rp">
+
+    <!-- Encabezado -->
+    <header class="rp-head">
+      <div>
+        <p class="rp-eyebrow">REPORTE DE TURNO</p>
+        <h1 class="rp-title">Resumen de servicio finalizado</h1>
+      </div>
+      <div class="rp-meta">
+        <span class="rp-chip"><mat-icon>check_circle</mat-icon> FINALIZADO</span>
+        <div>ID: TRN-{{ turno.id }}</div>
+        <div>{{ fin | date:'dd/MM/yyyy' }}</div>
+      </div>
+    </header>
+
+    <!-- Datos generales -->
+    <section class="rp-info">
+      <div class="rp-info-item">
+        <span class="rp-label">Conductor</span>
+        <span class="rp-info-value">{{ conductorNombre }}</span>
+        <span class="rp-info-sub">{{ conductorCodigo }}</span>
+      </div>
+      <div class="rp-info-item">
+        <span class="rp-label">Unidad</span>
+        <span class="rp-info-value">{{ placa }}</span>
+      </div>
+      <div class="rp-info-item">
+        <span class="rp-label">Ruta</span>
+        <span class="rp-info-value">{{ ruta.nombre }}</span>
+      </div>
+    </section>
+
+    <!-- Indicadores -->
+    <section class="rp-kpis">
+      <div class="rp-kpi">
+        <span class="rp-label">Distancia recorrida</span>
+        <span class="rp-kpi-value">{{ distancia | number:'1.2-2' }}<small>KM</small></span>
+        <span class="rp-kpi-sub">Vel. promedio {{ velocidadPromedio | number:'1.0-1' }} km/h</span>
+      </div>
+      <div class="rp-kpi">
+        <span class="rp-label">Tiempo total</span>
+        <span class="rp-kpi-value">{{ formatTime(segundos) }}</span>
+        <span class="rp-kpi-sub">Duración del servicio</span>
+      </div>
+      <div class="rp-kpi">
+        <span class="rp-label">Pasajeros</span>
+        <span class="rp-kpi-value">{{ pasajeros }}</span>
+        <span class="rp-kpi-sub">Transportados en el turno</span>
+      </div>
+      <div class="rp-kpi">
+        <span class="rp-label">Recaudación</span>
+        <span class="rp-kpi-value">${{ recaudacion | number:'1.2-2' }}</span>
+        <span class="rp-kpi-sub">${{ ingresoPorPasajero | number:'1.2-2' }} por pasajero</span>
+      </div>
+    </section>
+
+    <!-- Ruta y línea de tiempo -->
+    <section class="rp-grid">
+      <div class="rp-card">
+        <p class="rp-card-title">RUTA OPERADA</p>
+        <div class="rp-route">
+          <span class="rp-badge">{{ ruta.nombre }}</span>
+          <span class="rp-route-sub">Última parada: Calle 45 con Av. Principal</span>
+        </div>
+        <ul class="rp-tl">
+          <li><span class="rp-dot on"></span>
+            <div><b>{{ ruta.origen }}</b><small>Origen</small></div></li>
+          <li><span class="rp-dot"></span>
+            <div><b>{{ ruta.destino }}</b><small>Destino</small></div></li>
+        </ul>
+      </div>
+
+      <div class="rp-card">
+        <p class="rp-card-title">LÍNEA DE TIEMPO</p>
+        <ul class="rp-tl">
+          <li><span class="rp-dot on"></span>
+            <div><b>{{ inicio | date:'HH:mm:ss' }}</b><small>Inicio del turno</small></div></li>
+          <li><span class="rp-dot"></span>
+            <div><b>{{ fin | date:'HH:mm:ss' }}</b><small>Fin del turno</small></div></li>
+        </ul>
+        <div class="rp-sent"><mat-icon>check_circle</mat-icon> Datos transmitidos a la central</div>
+      </div>
+    </section>
+
+    <!-- Protocolo de cierre -->
+    <section class="rp-card">
+      <div class="rp-card-head">
+        <p class="rp-card-title">PROTOCOLO DE CIERRE</p>
+        <span class="rp-count">{{ doneCount() }}/{{ checklist.length }}</span>
+      </div>
+      <div class="rp-progress"><span [style.width.%]="(doneCount() / checklist.length) * 100"></span></div>
+      <div class="rp-checks">
+        @for (item of checklist; track $index) {
+          <button type="button" class="rp-check" [class.done]="checks()[$index]" (click)="toggle($index)">
+            <span class="rp-box">@if (checks()[$index]) { <mat-icon>check</mat-icon> }</span>
+            <span>{{ item }}</span>
+          </button>
+        }
+      </div>
+    </section>
+
+    <!-- Acción -->
+    <div class="rp-actions">
+      <button type="button" class="rp-btn" (click)="newService()">
+        <mat-icon>power_settings_new</mat-icon> INICIAR NUEVO SERVICIO
+      </button>
+    </div>
+
+  </div>
+}

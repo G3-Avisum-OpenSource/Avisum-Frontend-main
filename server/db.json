@@ -1,0 +1,166 @@
+{
+  "employees": [
+    {
+      "id": 1,
+      "employeeCode": "EMP-001",
+      "firstName": "Carlos Franco",
+      "lastName": "Blancas Chavez",
+      "fullName": "Carlos Franco Blancas Chavez",
+      "dni": "00000001",
+      "plateNumber": "ABC-1234",
+      "status": "ACTIVE"
+    },
+    {
+      "id": 2,
+      "employeeCode": "EMP-002",
+      "firstName": "Rodrigo Jesus",
+      "lastName": "Miraval Pomalaya",
+      "fullName": "Rodrigo Jesus Miraval Pomalaya",
+      "dni": "00000002",
+      "plateNumber": "DEF-5678",
+      "status": "ACTIVE"
+    },
+    {
+      "id": 3,
+      "employeeCode": "EMP-003",
+      "firstName": "Waldo Alonso",
+      "lastName": "Portal Inga",
+      "fullName": "Waldo Alonso Portal Inga",
+      "dni": "00000003",
+      "plateNumber": "GHI-9012",
+      "status": "ACTIVE"
+    },
+    {
+      "id": 4,
+      "employeeCode": "EMP-004",
+      "firstName": "Joaquin Leonardo",
+      "lastName": "Reyes Muñoz",
+      "fullName": "Joaquin Leonardo Reyes Muñoz",
+      "dni": "00000004",
+      "plateNumber": "JKL-3456",
+      "status": "ACTIVE"
+    },
+    {
+      "id": 5,
+      "employeeCode": "EMP-005",
+      "firstName": "Edson Diego",
+      "lastName": "Llamozas Diaz",
+      "fullName": "Edson Diego Llamozas Diaz",
+      "dni": "00000005",
+      "plateNumber": "MNO-7890",
+      "status": "ACTIVE"
+    }
+  ],
+  "bus-units": [
+    {
+      "id": 1,
+      "plateNumber": "ABC-1234",
+      "route": "R-42",
+      "currentLatitude": -12.0464,
+      "currentLongitude": -77.0428,
+      "status": "ACTIVE"
+    },
+    {
+      "id": 2,
+      "plateNumber": "DEF-5678",
+      "route": "R-15",
+      "currentLatitude": -12.06,
+      "currentLongitude": -77.03,
+      "status": "ACTIVE"
+    },
+    {
+      "id": 3,
+      "plateNumber": "GHI-9012",
+      "route": "R-07",
+      "currentLatitude": -12.07,
+      "currentLongitude": -77.05,
+      "status": "ACTIVE"
+    },
+    {
+      "id": 4,
+      "plateNumber": "JKL-3456",
+      "route": "R-22",
+      "currentLatitude": -12.09,
+      "currentLongitude": -77.06,
+      "status": "ACTIVE"
+    },
+    {
+      "id": 5,
+      "plateNumber": "MNO-7890",
+      "route": "R-33",
+      "currentLatitude": -12.03,
+      "currentLongitude": -77.01,
+      "status": "ACTIVE"
+    }
+  ],
+  "alerts": [],
+  "shifts": [
+    {
+      "id": 1,
+      "employeeId": 1,
+      "busUnitId": 1,
+      "routeName": "R-42",
+      "routeOrigin": "Terminal Norte",
+      "routeDestination": "Estación Central",
+      "distanceKm": 14.2,
+      "durationSeconds": 12300,
+      "passengerCount": 96,
+      "fareCollected": 182.5,
+      "status": "FINISHED",
+      "startedAt": "2026-10-02T14:00:00.000Z",
+      "endedAt": "2026-10-02T17:25:00.000Z"
+    },
+    {
+      "id": 2,
+      "employeeId": 2,
+      "busUnitId": 2,
+      "routeName": "R-15",
+      "routeOrigin": "Terminal Norte",
+      "routeDestination": "Estación Central",
+      "distanceKm": 11.8,
+      "durationSeconds": 10800,
+      "passengerCount": 74,
+      "fareCollected": 139,
+      "status": "FINISHED",
+      "startedAt": "2026-10-02T16:00:00.000Z",
+      "endedAt": "2026-10-02T19:00:00.000Z"
+    },
+    {
+      "id": 3,
+      "employeeId": 3,
+      "busUnitId": 3,
+      "routeName": "R-07",
+      "routeOrigin": "Terminal Norte",
+      "routeDestination": "Estación Central",
+      "distanceKm": 9.6,
+      "durationSeconds": 9000,
+      "passengerCount": 58,
+      "fareCollected": 104.5,
+      "status": "FINISHED",
+      "startedAt": "2026-10-03T13:00:00.000Z",
+      "endedAt": "2026-10-03T15:30:00.000Z"
+    },
+    {
+      "id": 4,
+      "employeeId": 4,
+      "busUnitId": 4,
+      "routeName": "R-22",
+      "routeOrigin": "Terminal Norte",
+      "routeDestination": "Estación Central",
+      "distanceKm": 15.3,
+      "durationSeconds": 13200,
+      "passengerCount": 102,
+      "fareCollected": 198,
+      "status": "FINISHED",
+      "startedAt": "2026-10-03T15:00:00.000Z",
+      "endedAt": "2026-10-03T18:40:00.000Z"
+    }
+  ],
+  "drivers": [],
+  "sensors": [],
+  "passenger-counts": [],
+  "meta": {
+    "lastEmployeeId": 5,
+    "lastUnitId": 5
+  }
+}

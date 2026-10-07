@@ -1,0 +1,29 @@
+<div class="panic-root">
+  <div class="panic-modal">
+    <div class="alert-icon">
+      <mat-icon>check</mat-icon>
+    </div>
+    <h2 class="alert-title">¡ALERTA ENVIADA!</h2>
+    <p class="alert-sub">TRANSMISIÓN DE EMERGENCIA ACTIVA</p>
+
+    <div class="info-rows">
+      <div class="info-row">
+        <span class="info-key">COORDENADAS GPS</span>
+        <span class="info-val">{{ coords() }}</span>
+      </div>
+      <div class="info-row">
+        <span class="info-key">ESTADO CENTRAL</span>
+        <span class="info-val">CENTRAL NOTIFICADA <mat-icon class="tiny">check</mat-icon></span>
+      </div>
+      <div class="info-row">
+        <span class="info-key">AUDIO REMOTO</span>
+        <span class="info-val blink">GRABANDO...</span>
+      </div>
+    </div>
+
+    <button class="cancel-btn" (click)="cancel()" [disabled]="cancelCountdown() > 0">
+      CANCELAR ALERTA @if (cancelCountdown() > 0) { ({{ cancelCountdown() }}s) }
+    </button>
+    <button class="ok-btn" (click)="ok()">Ok</button>
+  </div>
+</div>

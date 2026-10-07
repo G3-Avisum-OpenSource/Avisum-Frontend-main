@@ -1,0 +1,63 @@
+<div class="login-root">
+  <!-- LEFT PANEL -->
+  <div class="left-panel">
+    <div class="bus-overlay">
+      <span class="estado-badge">ESTADO: EN ESPERA</span>
+      <h1 class="hero-title">Vigilancia Operativa<br>en Tiempo Real.</h1>
+      <p class="hero-sub">Acceda al panel de control industrial de Avisum para gestionar rutas, telemetría y protocolos de seguridad crítica.</p>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="right-panel">
+    <div class="form-wrap">
+      <div class="brand-top">
+        <span class="brand-name">Avisum</span>
+        <h2 class="form-title">Verificación de Identidad</h2>
+        <p class="form-sub">Escanee su credencial digital para iniciar el turno.</p>
+      </div>
+
+      <!-- QR Scanner trigger -->
+      <div class="qr-box" (click)="openScanner()">
+        <div class="qr-icon">
+          <mat-icon>qr_code_scanner</mat-icon>
+        </div>
+        <p class="qr-label">CÓDIGO QR REQUERIDO</p>
+        <p class="qr-sub">Coloque el código frente a la cámara.</p>
+      </div>
+
+      <!-- Code input -->
+      <div class="field-wrap">
+        <mat-form-field appearance="outline" class="full-w">
+          <mat-icon matPrefix>badge</mat-icon>
+          <input matInput placeholder="Código de Empleado"
+                 [value]="codigoEmpleado()"
+                 (input)="codigoEmpleado.set($any($event.target).value)" />
+        </mat-form-field>
+      </div>
+
+      <button class="sb-btn-primary" (click)="verify()" [disabled]="loading()">
+        @if (loading()) { <mat-icon>hourglass_top</mat-icon> VERIFICANDO... }
+        @else { VERIFICAR CREDENCIALES <mat-icon>verified</mat-icon> }
+      </button>
+
+      <!-- Errors -->
+      <div class="errors-list">
+        @for (e of errorList; track e.title) {
+          <div class="error-item" [class.active]="errors().includes(e.code)">
+            <mat-icon [style.color]="e.color">{{e.icon}}</mat-icon>
+            <div>
+              <p class="err-title">{{e.title}}</p>
+              <p class="err-desc">{{e.desc}}</p>
+            </div>
+          </div>
+        }
+      </div>
+
+      <div class="form-footer">
+        <span class="footer-item"><mat-icon>language</mat-icon> ESP-LATAM</span>
+        <span class="footer-item"><mat-icon>support_agent</mat-icon> Soporte Técnico</span>
+      </div>
+    </div>
+  </div>
+</div>

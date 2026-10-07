@@ -1,0 +1,25 @@
+.map-root {
+  display: grid;
+  grid-template-columns: 1fr 200px;
+  height: calc(100vh - 48px);
+}
+.map-area { overflow: hidden; border-right: 1px solid var(--sb-border); position: relative; }
+.leaflet-host { width: 100%; height: 100%; }
+.map-stats {
+  background: var(--sb-bg);
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.stat-block { display: flex; flex-direction: column; gap: 8px; }
+.stat-val {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 32px;
+  color: var(--sb-white);
+  line-height: 1;
+}
+.stat-val.mono { font-family: 'Share Tech Mono', monospace; color: var(--sb-accent); }
+.stat-val.accent { color: var(--sb-accent); }
+.back-btn { width: auto; margin-top: auto; }

@@ -1,0 +1,77 @@
+<div class="scanner-root">
+  <div class="scanner-header">
+    <div class="logo-box">
+      <mat-icon>shield</mat-icon>
+    </div>
+    <h2 class="brand">AVISUM</h2>
+    <p class="brand-sub">Validación de Identidad</p>
+  </div>
+
+  <!-- Scanner Card -->
+  <div class="scanner-card">
+    <div class="scan-label-row">
+      <span class="scan-label">CÓDIGO DE VERIFICACIÓN</span>
+      <span class="live-dot"><span class="dot-pulse"></span> LIVE SCAN</span>
+    </div>
+
+    <!-- Camera viewport -->
+    <div class="camera-view">
+      <div class="corner tl"></div>
+      <div class="corner tr"></div>
+      <div class="corner bl"></div>
+      <div class="corner br"></div>
+      <div class="qr-ghost">
+        <mat-icon>qr_code_2</mat-icon>
+      </div>
+      <!-- scan line -->
+      <div class="scan-line" [style.top.%]="scanLine()"></div>
+    </div>
+
+    <!-- Manual input -->
+    <mat-form-field appearance="outline" class="full-w">
+      <input matInput placeholder="Ingresar código manualmente"
+             [value]="manualCode()"
+             (input)="manualCode.set($any($event.target).value)"
+             (keyup.enter)="validate()" />
+    </mat-form-field>
+
+    <button class="sb-btn-primary" (click)="validate()">VALIDAR IDENTIDAD</button>
+    @if (errorMsg()) {
+      <p class="scan-note" style="color:#e8002a">{{ errorMsg() }}</p>
+    }
+    <p class="scan-note">Solo conductores registrados pueden iniciar servicio</p>
+  </div>
+
+  <!-- Verified identity card -->
+  @if (conductorFound(); as c) {
+    <div class="identity-card">
+      <div class="id-top">
+        <img [src]="c.foto" [alt]="c.nombreCompleto" class="id-photo" />
+        <div class="id-info">
+          <span class="verified-badge">IDENTIDAD VERIFICADA</span>
+          <h3 class="id-name">{{ c.nombreCompleto }}</h3>
+          <p class="id-sub">ID: {{ c.codigoQr }}</p>
+        </div>
+      </div>
+      <div class="id-details">
+        <div class="id-detail-item">
+          <span class="sb-label">PLACA VEHÍCULO</span>
+          <span class="id-detail-val">{{ c.placa }}</span>
+        </div>
+        <div class="id-detail-item">
+          <span class="sb-label">ESTADO</span>
+          <span class="id-detail-val accent">{{ c.estado }}</span>
+        </div>
+      </div>
+      <button class="sb-btn-primary" (click)="startShift()">INICIAR TURNO →</button>
+    </div>
+  }
+
+  <footer class="scanner-footer">
+    <span class="sb-mono footer-left">TRANSIT-SEC PROTOCOL</span>
+    <div class="footer-right">
+      <span class="dot-green"></span> ENCRIPTACIÓN AES-256
+      <span class="dot-green" style="margin-left:12px"></span> CLOUD_SYNC OK
+    </div>
+  </footer>
+</div>

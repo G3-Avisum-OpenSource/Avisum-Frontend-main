@@ -1,0 +1,121 @@
+<div class="dash-root">
+  <!-- MAIN LEFT -->
+  <div class="dash-main">
+    <!-- Service summary -->
+    <div class="sb-card service-card">
+      <p class="section-label">INICIO DE SERVICIO</p>
+      <div class="metrics-row">
+        <div class="metric">
+          <span class="sb-label">DISTANCIA</span>
+          <span class="sb-value">{{ distancia() | number:'1.1-1' }} KM</span>
+        </div>
+        <div class="metric">
+          <span class="sb-label">TIEMPO TOTAL</span>
+          <span class="sb-value mono">{{ tiempoStr() }}</span>
+        </div>
+        <div class="metric">
+          <span class="sb-label">PASAJEROS</span>
+          <span class="sb-value">{{ pasajeros() }}</span>
+        </div>
+        <div class="metric">
+          <span class="sb-label">RECAUDACIÓN</span>
+          <span class="sb-value">${{ recaudacion() | number:'1.2-2' }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Route -->
+    <div class="sb-card route-card">
+      <p class="section-label">RUTA OPERADA</p>
+      <div class="route-row">
+        <span class="route-badge">R-42</span>
+        <div class="route-info">
+          <p class="route-name">Terminal Norte → Estación Central</p>
+          <p class="route-sub">Última parada: Calle 45 con Av. Principal</p>
+        </div>
+        <button class="sb-btn-outline map-btn" (click)="viewMap()">VER MAPA</button>
+      </div>
+    </div>
+
+    <!-- Closure protocol -->
+    <div class="sb-card protocol-card">
+      <p class="section-label">PROTOCOLO DE CIERRE</p>
+      <div class="check-list">
+        <label class="check-row">
+          <input type="checkbox" [checked]="check1()" (change)="check1.set($any($event.target).checked)" />
+          <span>Vehículo estacionado en zona segura / terminal</span>
+        </label>
+        <label class="check-row">
+          <input type="checkbox" [checked]="check2()" (change)="check2.set($any($event.target).checked)" />
+          <span>Verificación de interior sin objetos perdidos</span>
+        </label>
+        <label class="check-row">
+          <input type="checkbox" [checked]="check3()" (change)="check3.set($any($event.target).checked)" />
+          <span>Validación de total de pasajeros en consola</span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="dash-right">
+    <!-- Finish service -->
+    <div class="sb-card finish-card">
+      <div class="power-icon">
+        <mat-icon>power_settings_new</mat-icon>
+      </div>
+      <p class="finish-label">CONFIRMACIÓN FINAL</p>
+      <button class="finish-btn" (click)="openFinish()">FINALIZAR SERVICIO</button>
+      <p class="finish-warning">ESTA ACCIÓN NO PUEDE DESHACERSE</p>
+    </div>
+
+    <!-- System status -->
+    <div class="sb-card status-card">
+      <p class="section-label">ESTADO DEL SISTEMA</p>
+      <div class="status-rows">
+        <div class="status-row">
+          <span class="st-key">GPS</span>
+          <span class="st-val">{{ gpsStatus() }}</span>
+        </div>
+        <div class="status-row">
+          <span class="st-key">TELEMETRÍA</span>
+          <span class="st-val">{{ telStatus() }}</span>
+        </div>
+        <div class="status-row">
+          <span class="st-key">RED CLOUD</span>
+          <span class="st-val">{{ cloudStatus() }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mini map -->
+    <div class="map-preview" (click)="viewMap()">
+      <iframe
+        src="https://www.openstreetmap.org/export/embed.html?bbox=-77.0700,-12.1200,-76.9400,-12.0200&layer=mapnik&marker=-12.0464,-77.0428"
+        width="100%" height="100%" style="border:none; filter:brightness(0.7) saturate(0.6);"
+        title="Mapa Lima">
+      </iframe>
+      <div class="map-overlay-bar">
+        <span class="dot-g-sm"></span> VIGILANCIA ACTIVA: TRANSMITIENDO A CENTRAL
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FINISH MODAL -->
+@if (showFinishModal()) {
+  <div class="sb-overlay" style="background:rgba(0,0,0,0.8)">
+    <div class="sb-modal finish-modal">
+      <div class="modal-check">
+        <mat-icon>check</mat-icon>
+      </div>
+      <h3 class="modal-title">SERVICIO FINALIZADO<br>CORRECTAMENTE</h3>
+      <p class="modal-sub">Los datos del turno han sido guardados y transmitidos a la central de operaciones.</p>
+      <p class="modal-id sb-mono">TRANSIT-SEC ID: 030-2021-A</p>
+      <div class="modal-btns">
+        <button class="sb-btn-outline" (click)="verReporte()">VER REPORTE</button>
+        <button class="sb-btn-primary" (click)="salir()">SALIR</button>
+      </div>
+    </div>
+  </div>
+}
