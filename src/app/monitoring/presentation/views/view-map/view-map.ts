@@ -8,6 +8,11 @@ import { AuthStateService } from '../../../../iam/application/auth-state.service
 
 declare const L: any;
 
+/**
+ * Driver's live map.
+ * Shows the current position of the assigned unit on OpenStreetMap along
+ * with the elapsed time and distance travelled during the active shift.
+ */
 @Component({
   selector: 'app-view-map',
   standalone: true,

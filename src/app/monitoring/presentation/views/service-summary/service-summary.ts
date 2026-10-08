@@ -5,6 +5,11 @@ import { DatePipe, DecimalPipe } from '@angular/common';
 import { ShiftTrackingService } from '../../../application/shift-tracking.service';
 import { AuthStateService } from '../../../../iam/application/auth-state.service';
 
+/**
+ * Final shift report.
+ * Summarizes the completed service (driver, unit, route, metrics) and lets
+ * the driver start a new service or close the session.
+ */
 @Component({
   selector: 'app-service-summary',
   standalone: true,
