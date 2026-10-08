@@ -6,6 +6,13 @@ import { FormsModule } from '@angular/forms';
 import { DecimalPipe } from '@angular/common';
 import { ShiftTrackingService } from '../../../application/shift-tracking.service';
 import { AuthStateService } from '../../../../iam/application/auth-state.service';
+
+/**
+ * Main screen shown to the driver during an active shift.
+ * Displays live service metrics (distance, time, passengers, revenue) and
+ * lets the driver start the shift closing protocol. Redirects to the login
+ * screen when no shift is active.
+ */
 @Component({
   selector: 'app-driver-dashboard',
   standalone: true,
