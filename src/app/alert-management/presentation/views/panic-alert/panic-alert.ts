@@ -12,11 +12,16 @@ import { AlertStateService } from '../../../application/alert-state.service';
   styleUrl: './panic-alert.css',
 })
 export class PanicAlert implements OnInit, OnDestroy {
-  private router  = inject(Router);
-  private auth    = inject(AuthStateService);
-  private alerts  = inject(AlertStateService);
+  private router = inject(Router);
+  private auth = inject(AuthStateService);
+  private alerts = inject(AlertStateService);
 
-  coords          = signal('4.7110° N, 74.0721° W');
+  /**
+   * GPS coordinates of the incident.
+   * Defaults to Lima Metropolitana (the app's operating region) and is
+   * overwritten with the real unit position once the driver code is resolved.
+   */
+  coords = signal('-12.0464° S, 77.0428° W');
   cancelCountdown = signal(5);
   private timer: ReturnType<typeof setInterval> | null = null;
 
@@ -30,11 +35,17 @@ export class PanicAlert implements OnInit, OnDestroy {
       }
     }
     this.timer = setInterval(() => {
-      this.cancelCountdown.update(v => v > 0 ? v - 1 : 0);
+      this.cancelCountdown.update((v) => (v > 0 ? v - 1 : 0));
     }, 1000);
   }
-  ngOnDestroy() { if (this.timer) clearInterval(this.timer); }
+  ngOnDestroy() {
+    if (this.timer) clearInterval(this.timer);
+  }
 
-  cancel() { this.router.navigate(['/conductor/dashboard']); }
-  ok()     { this.router.navigate(['/conductor/dashboard']); }
+  cancel() {
+    this.router.navigate(['/conductor/dashboard']);
+  }
+  ok() {
+    this.router.navigate(['/conductor/dashboard']);
+  }
 }
