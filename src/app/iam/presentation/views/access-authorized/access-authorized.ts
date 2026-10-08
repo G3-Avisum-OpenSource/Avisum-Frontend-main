@@ -18,7 +18,12 @@ export class AccessAuthorized implements OnInit {
   private shift = inject(ShiftTrackingService);
   private fleet = inject(FleetTrackingService);
 
-  coords = signal('4.7110° N, 74.0721° W');
+  /**
+   * GPS coordinates shown in the access-authorized modal.
+   * Defaults to Lima Metropolitana (the app's operating region) and is
+   * overwritten with the real unit position once the fleet loads.
+   */
+  coords = signal('-12.0464° S, 77.0428° W');
   centralOk = signal(true);
   recording = signal(true);
 
